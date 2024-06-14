@@ -46,28 +46,28 @@ function App() {
     }
 
 
-    useEffect(() => {
-      async function getImages() {
-        try {
-          setError(false);
-          setIsLoading(true);
-          const data = await fetchImages(query, page);
-          setShowBtn(data.total_pages && data.total_pages !== page);
-          setImages((prevImages) => {
-            return [...prevImages, ...data.results];
-          });
-        } catch (error) {
-          setError(true);
-        } finally {
-          setIsLoading(false);
-        }
+
+    async function getImages() {
+      try {
+        setError(false);
+        setIsLoading(true);
+        const data = await fetchImages(query, page);
+        setShowBtn(data.total_pages && data.total_pages !== page);
+        setImages((prevImages) => {
+          return [...prevImages, ...data.results];
+        });
+      } catch (error) {
+        setError(true);
+      } finally {
+        setIsLoading(false);
       }
-      getImages();
-    }, [query, page]);
+    }
+    getImages();
+  }, [query, page]);
 
 
-    ;
-  }, []);
+  ;
+
   return (
     <>
       <SearchBar onSubmit={handleSearch} />
